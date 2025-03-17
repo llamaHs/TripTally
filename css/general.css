@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Poppins", Arial;
+  color: #333;
+  background-color: #f7f9ff;
+
+  height: 100vh;
+  position: relative;
+}
+
+/* ******************************* */
+/* ICON */
+/* ******************************* */
+
+.icon {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+/* ******************************* */
+/* HIDDEN */
+/* ******************************* */
+
+.hidden {
+  display: none !important;
+  /* opacity: 0;
+  pointer-events: none;
+  visibility: hidden; */
+}

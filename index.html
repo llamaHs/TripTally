@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="img/favicon.png" />
+
+    <title>TripTally | Track your travel expense</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/general.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/queries.css" />
+
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+
+    <script defer src="script.js"></script>
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <p class="welcome-msg">Welcome to TripTally!</p>
+
+      <!-- <p class="welcome-msg">
+        Welcome to <span class="user-country">Korea</span>,
+        <span class="user-name">Heeseung</span>!
+      </p> -->
+
+      <img src="img/logo-trans.png" alt="Logo of TripTally" class="logo" />
+
+      <p class="user-period">Let me know your trip plan!</p>
+
+      <!-- <p class="user-period">
+        <span class="period-first">May 29, 2025</span> &mdash;
+        <span class="period-last">June 5, 2025</span>
+      </p> -->
+    </header>
+
+    <main>
+      <section class="log-in">
+        <div class="log-in-box">
+          <form class="log-in-form">
+            <div class="name">
+              <label for="name">Your name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="e.g. Andrew"
+                required
+              />
+            </div>
+
+            <div class="destination">
+              <label for="country">Your destination</label>
+              <select id="country" required></select>
+            </div>
+
+            <div class="date">
+              <label for="date-from">From</label>
+              <input
+                type="date"
+                id="date-from"
+                name="date-from"
+                placeholder="Choose the date"
+                required
+              />
+              <label for="date-to">To</label>
+              <input
+                type="date"
+                id="date-to"
+                name="date-to"
+                placeholder="Choose the date"
+                required
+              />
+            </div>
+
+            <button class="btn-log-in">
+              <ion-icon class="icon-plane" name="airplane-outline"></ion-icon>
+              <p>Start my TripTally</p>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <section class="app hidden">
+        <!-- READY CASH -->
+        <div class="ready-cash">
+          <p class="ready-cash-title">Ready Cash</p>
+          <p class="ready-cash-amount">$1,000</p>
+        </div>
+
+        <!-- RECEIPT -->
+        <div class="receipt">
+          <div class="receipt-box">
+            <p class="receipt-title">Expense</p>
+            <p class="receipt-amount">$800</p>
+            <button class="btn-receipt">
+              <ion-icon
+                class="btn-icon-arrow arrow--down hidden"
+                name="chevron-down-outline"
+              ></ion-icon>
+              <ion-icon
+                class="btn-icon-arrow arrow--up"
+                name="chevron-up-outline"
+              ></ion-icon>
+            </button>
+          </div>
+
+          <div class="receipt-items">
+            <div class="receipt-item">
+              <div class="icon-box">
+                <ion-icon class="icon icon-card" name="card-outline"></ion-icon>
+              </div>
+              <p class="item-title">Steak</p>
+
+              <p class="item-date">June 2, 2025</p>
+              <p class="item-price">$50</p>
+            </div>
+
+            <div class="receipt-item">
+              <div class="icon-box">
+                <ion-icon class="icon icon-cash" name="cash-outline"></ion-icon>
+              </div>
+              <p class="item-title">Cup</p>
+
+              <p class="item-date">May 30, 2025</p>
+              <p class="item-price">$7</p>
+            </div>
+          </div>
+
+          <div class="button-list">
+            <button class="btn-filter-cash">
+              <ion-icon class="icon icon-cash" name="cash-outline"></ion-icon>
+              <p>CASH ONLY</p>
+            </button>
+
+            <button class="btn-filter-card">
+              <ion-icon class="icon icon-card" name="card-outline"></ion-icon>
+              <p>CARD ONLY</p>
+            </button>
+
+            <button class="btn-sort">
+              <ion-icon
+                class="icon icon-sort"
+                name="arrow-up-outline"
+              ></ion-icon>
+              <p>SORT BY OLDEST</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- EXCHANGE -->
+        <div class="container container--exchange">
+          <p class="container-title">Exchange</p>
+
+          <div class="exchange-rate">
+            <div class="rate-container">
+              <p class="rate-title">Current Rate</p>
+
+              <div class="rate-result">
+                <p class="rate-unit">$</p>
+                <p class="rate-result-value">1,450</p>
+              </div>
+            </div>
+
+            <form class="exchange-form">
+              <div class="amount-box">
+                <label for="amount">Amount</label>
+                <input
+                  id="amount"
+                  name="amount"
+                  type="number"
+                  min="0"
+                  step="any"
+                  placeholder="1234.56"
+                  class="amount"
+                />
+              </div>
+
+              <div class="btn-container">
+                <button class="btn-rate">
+                  <ion-icon
+                    class="icon icon-calc"
+                    name="calculator-outline"
+                  ></ion-icon>
+                </button>
+                <button class="btn-rate">
+                  <ion-icon class="icon icon-add" name="add-outline"></ion-icon>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <p class="exchange-caution">
+            <!-- &#8251; The exchange rate may be different from the actual
+              counter's exchange rate. -->
+            &#8251; The amount of cash may vary depending on the actual exchange
+            rate at the currency exchange counter.
+          </p>
+        </div>
+
+        <!-- NEW EXPENSE -->
+        <div class="container container--expense">
+          <p class="container-title">New Spending</p>
+          <p class="expense-date">
+            Today: <span class="date">May 29, 2025</span>
+          </p>
+
+          <form class="expense-form">
+            <div>
+              <label for="spending"></label>
+              <input
+                id="spending"
+                name="spending"
+                type="number"
+                min="0"
+                step="any"
+                placeholder="product price"
+                class="expense-value"
+              />
+            </div>
+
+            <div class="checkbox-container">
+              <label for="cash">
+                <ion-icon class="icon icon-cash" name="cash-outline"></ion-icon>
+              </label>
+              <input id="cash" type="checkbox" name="cash" />
+            </div>
+
+            <div class="checkbox-container">
+              <label for="card">
+                <ion-icon class="icon icon-card" name="card-outline"></ion-icon>
+              </label>
+              <input id="card" type="checkbox" name="card" />
+            </div>
+
+            <button class="btn-spending">
+              <ion-icon
+                class="icon icon-add--expense"
+                name="add-outline"
+              ></ion-icon>
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer hidden">
+      <p class="copyright">
+        Copyright &copy; <span class="year">2025</span> by Heeseung Lee. All
+        rights reserved.
+      </p>
+    </footer>
+  </body>
+</html>
