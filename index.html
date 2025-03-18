@@ -27,7 +27,7 @@
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
     ></script>
 
-    <script defer src="script.js"></script>
+    <script defer type="module" src="script.js"></script>
   </head>
 
   <body>
@@ -63,6 +63,11 @@
                 placeholder="e.g. Andrew"
                 required
               />
+            </div>
+
+            <div class="nationality">
+              <label for="country-from">You are from</label>
+              <select id="country-from" required></select>
             </div>
 
             <div class="destination">
@@ -260,7 +265,7 @@
       </section>
     </main>
 
-    <footer class="footer hidden">
+    <footer class="footer">
       <p class="copyright">
         Copyright &copy; <span class="year">2025</span> by Heeseung Lee. All
         rights reserved.
