@@ -1,0 +1,28 @@
+{
+  "name": "project-triptally",
+  "version": "1.0.0",
+  "description": "This is a travel expense tracker that helps users to manage their ready money and expense during travel.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/llamaHs/TripTally.git"
+  },
+  "author": "Heeseung Lee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/llamaHs/TripTally/issues"
+  },
+  "homepage": "https://github.com/llamaHs/TripTally#readme",
+  "devDependencies": {
+    "parcel": "^2.14.0"
+  },
+  "dependencies": {
+    "core-js": "^3.41.0",
+    "regenerator-runtime": "^0.14.1"
+  }
+}

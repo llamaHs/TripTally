@@ -1,2 +1,5 @@
 css/guide.css
 .DS_Store
+node_modules
+dist
+.parcel-cache
