@@ -17,10 +17,12 @@ const userDestination = document.querySelector("#country");
 const dateFrom = document.getElementById("date-from");
 const dateTo = document.getElementById("date-to");
 
-const periodFrom = document.querySelector(".period-from");
-const periodTo = document.querySelector(".period-to");
+const readyCash = document.querySelector(".ready-cash-value");
+const expense = document.querySelector(".receipt-expense-value");
+const exchangeResult = document.querySelector(".rate-result-value");
+const currency = document.querySelector(".currency");
 
-// * Log-in feature
+// * Log-in feature: country
 countrySelects.forEach((select) => {
   COUNTRY_LIST.forEach((country) => {
     const option = `<option name="country" value="${country}">${country}</option>`;
@@ -35,6 +37,7 @@ logInForm.addEventListener("submit", function (e) {
   logInPage.classList.add("hidden");
   mainApp.classList.remove("hidden");
 
+  // header
   welcomeMsg.textContent = "";
   userPeriod.textContent = "";
 
@@ -51,3 +54,52 @@ logInForm.addEventListener("submit", function (e) {
     day: "numeric",
   }).format(new Date(dateTo.value))}</span>`;
 });
+
+// * Initial ready cash, expense
+readyCash.textContent = "0";
+expense.textContent = "0";
+exchangeResult.textContent = "0";
+
+// * Country code function - 미완
+const getCountryCode = async function (country) {
+  try {
+    const resCountry = await fetch(
+      `https://restcountries.com/v3.1/name/${country}`
+    );
+
+    if (resCountry.status === 404)
+      throw new Error(`Country Not Found ${response.status}`);
+
+    const [dataCountry] = await resCountry.json();
+    console.log(dataCountry);
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+getCountryCode("South Korea");
+
+// * Get Currency symbol
+const getCountryCurrency = async function (country) {
+  try {
+    const resCountry = await fetch(
+      `https://restcountries.com/v3.1/name/${country}`
+    );
+
+    if (resCountry.status === 404)
+      throw new Error(`Country Not Found ${response.status}`);
+
+    const [dataCountry] = await resCountry.json();
+    const { currencies } = dataCountry;
+
+    const map = new Map(Object.entries(currencies));
+    const { symbol } = [...map.values()][0];
+
+    return symbol;
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+getCountryCurrency("South Korea");
+getCountryCurrency("United States");

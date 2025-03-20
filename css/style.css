@@ -121,7 +121,7 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto 1fr 1fr;
   column-gap: 10rem;
-  row-gap: 3.2rem;
+  row-gap: 3.1rem;
   max-width: 100rem;
   margin: 0 auto;
   padding-top: 2.4rem;
@@ -322,6 +322,7 @@
   display: flex;
   gap: 0.5rem;
   font-weight: 500;
+  font-size: 2rem;
 }
 
 .exchange-form {
@@ -336,6 +337,10 @@
   align-items: center;
   justify-content: space-between;
   /* gap: 6.4rem; */
+}
+
+.user-currency {
+  margin-right: 0.5rem;
 }
 
 .amount {

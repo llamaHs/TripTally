@@ -27,7 +27,8 @@
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
     ></script>
 
-    <script defer type="module" src="script.js"></script>
+    <script defer type="module" src="js/script.js"></script>
+    <script defer type="module" src="js/script.js"></script>
   </head>
 
   <body>
@@ -112,14 +113,20 @@
         <!-- READY CASH -->
         <div class="ready-cash">
           <p class="ready-cash-title">Ready Cash</p>
-          <p class="ready-cash-amount">$1,000</p>
+          <p class="ready-cash-amount">
+            <span class="currency">$</span
+            ><span class="ready-cash-value">1000</span>
+          </p>
         </div>
 
         <!-- RECEIPT -->
         <div class="receipt">
           <div class="receipt-box">
             <p class="receipt-title">Expense</p>
-            <p class="receipt-amount">$800</p>
+            <p class="receipt-amount">
+              <span class="currency">$</span
+              ><span class="receipt-expense-value">800</span>
+            </p>
             <button class="btn-receipt">
               <ion-icon
                 class="btn-icon-arrow arrow--down hidden"
@@ -184,7 +191,7 @@
               <p class="rate-title">Current Rate</p>
 
               <div class="rate-result">
-                <p class="rate-unit">$</p>
+                <p class="currency">$</p>
                 <p class="rate-result-value">1,450</p>
               </div>
             </div>
@@ -192,15 +199,18 @@
             <form class="exchange-form">
               <div class="amount-box">
                 <label for="amount">Amount</label>
-                <input
-                  id="amount"
-                  name="amount"
-                  type="number"
-                  min="0"
-                  step="any"
-                  placeholder="1234.56"
-                  class="amount"
-                />
+                <div>
+                  <span class="user-currency">￦</span>
+                  <input
+                    id="amount"
+                    name="amount"
+                    type="number"
+                    min="0"
+                    step="any"
+                    placeholder="1234.56"
+                    class="amount"
+                  />
+                </div>
               </div>
 
               <div class="btn-container">
