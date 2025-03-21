@@ -20,7 +20,6 @@ const dateTo = document.getElementById("date-to");
 const readyCash = document.querySelector(".ready-cash-value");
 const expense = document.querySelector(".receipt-expense-value");
 const exchangeResult = document.querySelector(".rate-result-value");
-const currency = document.querySelector(".currency");
 
 // * Log-in feature: country
 countrySelects.forEach((select) => {
@@ -30,7 +29,7 @@ countrySelects.forEach((select) => {
   });
 });
 
-// * Main page
+// * VIEW - Main page
 logInForm.addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -55,12 +54,12 @@ logInForm.addEventListener("submit", function (e) {
   }).format(new Date(dateTo.value))}</span>`;
 });
 
-// * Initial ready cash, expense
+// * VIEW - Initial ready cash, expense
 readyCash.textContent = "0";
 expense.textContent = "0";
 exchangeResult.textContent = "0";
 
-// * Country code function - 미완
+// * API - Get Country code
 const getCountryCode = async function (country) {
   try {
     const resCountry = await fetch(
@@ -68,32 +67,41 @@ const getCountryCode = async function (country) {
     );
 
     if (resCountry.status === 404)
-      throw new Error(`Country Not Found ${response.status}`);
+      throw new Error(`Country Not Found ${resCountry.status}`);
 
     const [dataCountry] = await resCountry.json();
     console.log(dataCountry);
+
+    const langCode = Object.keys(dataCountry.languages)[0].slice(0, 2);
+    const countryCode = dataCountry.cca2;
+
+    console.log(`${langCode}-${countryCode}`);
+    return `${langCode}-${countryCode}`;
   } catch (err) {
     console.error(err.message);
   }
 };
 
-getCountryCode("South Korea");
+// getCountryCode("South Korea");
+// getCountryCode("Germany");
 
-// * Get Currency symbol
-const getCountryCurrency = async function (country) {
+// * API - Get Currency symbol
+const getCurrencySymbol = async function (country) {
   try {
     const resCountry = await fetch(
       `https://restcountries.com/v3.1/name/${country}`
     );
 
     if (resCountry.status === 404)
-      throw new Error(`Country Not Found ${response.status}`);
+      throw new Error(`Country Not Found ${resCountry.status}`);
 
     const [dataCountry] = await resCountry.json();
     const { currencies } = dataCountry;
 
-    const map = new Map(Object.entries(currencies));
-    const { symbol } = [...map.values()][0];
+    const map = Object.values(currencies);
+    const { symbol } = [...map][0];
+
+    if (!symbol) throw new Error(`Can't find the currency symbol`);
 
     return symbol;
   } catch (err) {
@@ -101,5 +109,24 @@ const getCountryCurrency = async function (country) {
   }
 };
 
-getCountryCurrency("South Korea");
-getCountryCurrency("United States");
+// getCurrencySymbol("Germany").then((symbol) => console.log(symbol));
+
+// * VIEW - Display Currency symbol
+const currency = document.querySelectorAll(".currency");
+const userCurrency = document.querySelector(".user-currency");
+
+const currencySymbolView = function (country, userCountry) {
+  getCurrencySymbol(country).then((symbol) => {
+    currency.forEach((cur) => (cur.textContent = symbol));
+  });
+
+  getCurrencySymbol(userCountry).then(
+    (symbol) => (userCurrency.textContent = symbol)
+  );
+};
+
+// * Form submit -> VIEW symbol
+logInForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  currencySymbolView(userDestination.value, userNation.value);
+});
