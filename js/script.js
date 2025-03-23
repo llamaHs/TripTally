@@ -125,8 +125,22 @@ const currencySymbolView = function (country, userCountry) {
   );
 };
 
-// * Form submit -> VIEW symbol
+// * View - Display date on new expense
+const expenseDate = document.querySelector(".expense-date-locale");
+
+const expenseDateView = function (country) {
+  getCountryCode(country).then((code) => {
+    expenseDate.textContent = new Intl.DateTimeFormat(code, {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }).format(new Date());
+  });
+};
+
+// * Form submit -> VIEW symbol + View expense date
 logInForm.addEventListener("submit", function (e) {
   e.preventDefault();
   currencySymbolView(userDestination.value, userNation.value);
+  expenseDateView(userDestination.value);
 });
