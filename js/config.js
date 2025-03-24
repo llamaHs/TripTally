@@ -1,3 +1,5 @@
+export const API_COUNTRY_URL = `https://restcountries.com/v3.1/name/`;
+
 export const COUNTRY_LIST = [
   "Afghanistan",
   "Åland Islands",

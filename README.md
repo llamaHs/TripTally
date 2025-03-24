@@ -6,7 +6,7 @@ This is a travel expense tracker that helps users to manage their ready money an
 
 - 💵 Check the ready cash
 - 💳 Record expenses and Sort them by cash or card
-- 📈 Real-time exchange rate of the destination
+- 📈 Daily exchange rate of the destination
 - 💰 Add exchange amount to the ready cash
 
 ## 🛠️ Tech Stack
