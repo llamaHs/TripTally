@@ -1,4 +1,6 @@
 export const API_COUNTRY_URL = `https://restcountries.com/v3.1/name/`;
+export const API_CURRENCY_URL = `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/`;
+export const API_CURRENCY_BACKUP_URL = `https://latest.currency-api.pages.dev/v1/currencies/`;
 
 export const COUNTRY_LIST = [
   "Afghanistan",

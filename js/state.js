@@ -1,11 +1,22 @@
-// * Country API
+export const state = {
+  user: {
+    name: "",
+    nationality: "",
+    destination: "",
+    travelPeriod: {
+      from: "",
+      to: "",
+    },
+  },
 
-// const getCountryCode = async function (country) {
-//   const countryName = await fetch(
-//     `https://restcountries.com/v3.1/name/${country}`
-//   );
+  asset: {
+    readyMoney: 0,
+    totalExpense: 0,
+    receipt: [],
+  },
 
-//   console.log(countryName);
-// };
-
-// getCountryCode("South Korea");
+  currency: {
+    nation: "",
+    destination: "",
+  },
+};

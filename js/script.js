@@ -1,28 +1,17 @@
 // * Varaiables and Imports
+import * as state from "./state.js";
 import { COUNTRY_LIST } from "./config.js";
 import headerMainView from "./views/headerMainView.js";
 import currencyView from "./views/currencyView.js";
 import expenseView from "./views/expenseView.js";
 
+// temp.
+import API from "./api.js";
+
 const countrySelects = document.querySelectorAll("#country-from, #country");
-
-// Log-in
 const logInForm = document.querySelector(".log-in-form");
-const mainApp = document.querySelector(".app");
-const logInPage = document.querySelector(".log-in");
-
-const welcomeMsg = document.querySelector(".welcome-msg");
-const userPeriod = document.querySelector(".user-period");
-
-const userName = document.querySelector("#name");
 const userNation = document.querySelector("#country-from");
 const userDestination = document.querySelector("#country");
-const dateFrom = document.getElementById("date-from");
-const dateTo = document.getElementById("date-to");
-
-const readyCash = document.querySelector(".ready-cash-value");
-const expense = document.querySelector(".receipt-expense-value");
-const exchangeResult = document.querySelector(".rate-result-value");
 
 // * Form submit - log in
 const controlLogIn = function () {
@@ -58,6 +47,9 @@ const controlExpenseDate = function () {
   });
 };
 
+// * Calculate exchange rate
+const calcExchangeRate = function () {};
+
 // * Init
 const init = function () {
   controlLogIn();
@@ -66,3 +58,6 @@ const init = function () {
 };
 
 init();
+
+// * temp.
+API.getExchangeRate("South Korea", "United States");
