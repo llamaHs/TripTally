@@ -23,21 +23,21 @@ class HeaderMainView {
     this.mainApp.classList.remove("hidden");
   }
 
-  headerRender() {
+  headerRender(userName, destination, dateFrom, dateTo) {
     this.welcomeMsg.textContent = "";
     this.userPeriod.textContent = "";
 
-    this.welcomeMsg.innerHTML = `Welcome to <span class="user-country">${this.userDestination.value}</span>,
-<span class="user-name">${this.userName.value}</span>!`;
+    this.welcomeMsg.innerHTML = `Welcome to <span class="user-country">${destination}</span>,
+<span class="user-name">${userName}</span>!`;
 
     this.userPeriod.innerHTML = `<span class="period-from">${new Intl.DateTimeFormat(
       navigator.language,
       this.dateOption
-    ).format(new Date(this.dateFrom.value))}</span> &mdash;
+    ).format(new Date(dateFrom))}</span> &mdash;
 <span class="period-to">${new Intl.DateTimeFormat(
       navigator.language,
       this.dateOption
-    ).format(new Date(this.dateTo.value))}</span>`;
+    ).format(new Date(dateTo))}</span>`;
   }
 
   // * Initial ready cash, expense

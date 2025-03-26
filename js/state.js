@@ -16,7 +16,8 @@ export const state = {
   },
 
   currency: {
-    nation: "",
-    destination: "",
+    symbol: "",
+    userSymbol: "",
+    exchangeRate: 0,
   },
 };
