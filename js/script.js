@@ -17,6 +17,13 @@ const userDestination = document.querySelector("#country");
 const exchangeAmount = document.querySelector(".amount");
 const btnCalc = document.querySelector(".btn-calc");
 const btnAdd = document.querySelector(".btn-add");
+const exchangeResultUI = document.querySelector(".rate-result-value");
+
+const expenseItem = document.querySelector(".expense-item");
+const expenseAmount = document.querySelector(".expense-value");
+const checkCash = document.querySelector("#cash");
+const checkCard = document.querySelector("#card");
+const btnExpense = document.querySelector(".btn-spending");
 
 // if (module.hot) {
 //   module.hot.accept();
@@ -61,12 +68,10 @@ class UpdateState {
         );
         headerMainView.initialAmount();
 
-        expenseView.expenseDateRender(state.user.destination);
+        await expenseView.expenseDateRender(state.user.destination);
       });
     });
   }
-
-  updateAsset() {}
 
   async updateCurrency() {
     try {
@@ -89,6 +94,31 @@ class UpdateState {
     } catch (err) {
       console.error("Failed to update currency", err);
     }
+  }
+
+  updateReadyCash(amount) {
+    // Update state
+    state.asset.readyCash = parseFloat(
+      (state.asset.readyCash + amount).toFixed(2)
+    );
+
+    // Update UI
+    currencyView.readyCashRender(state.asset.readyCash);
+
+    console.log(state);
+  }
+
+  updateExpense(newExpense) {
+    // Update state + UI
+    state.asset.receipt.push(newExpense);
+    expenseView.receiptRender(state.asset.receipt, state.user.destination);
+
+    // Update total expense
+    state.asset.totalExpense = parseFloat(
+      (state.asset.totalExpense + Number(newExpense.price)).toFixed(2)
+    );
+
+    expenseView.totalExpenseRender(state.asset.totalExpense);
   }
 }
 
@@ -114,14 +144,39 @@ const calcExchange = function () {
         e.preventDefault();
         if (e.key === "Enter") return;
 
-        state.asset.readyMoney = parseFloat(
-          (state.asset.readyMoney + exchangeResult).toFixed(2)
-        );
-        console.log(state.asset.readyMoney);
-        currencyView.readyCashRender(state.asset.readyMoney);
+        // update State + UI
+        updateState.updateReadyCash(exchangeResult);
+
+        // Empty input field + exchange result
+        exchangeAmount.value = "";
+        exchangeResultUI.textContent = 0;
       },
       { once: true }
     );
+  });
+};
+
+// * Add Expense + Update UI + Update state
+const addExpense = function () {
+  btnExpense.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    // Make new expense object
+    const newExpense = {
+      item: expenseItem.value,
+      price: Number(expenseAmount.value),
+      pay: checkCash.checked ? checkCash.value : "card",
+    };
+
+    // update state + UI
+    updateState.updateExpense(newExpense);
+
+    if (checkCash.checked) {
+      updateState.updateReadyCash(-Number(newExpense.price));
+    }
+
+    checkCash.checked = checkCard.checked = false;
+    expenseItem.value = expenseAmount.value = "";
   });
 };
 
@@ -130,21 +185,6 @@ const init = function () {
   controlLogIn();
   updateState.updateUser();
   calcExchange();
+  addExpense();
 };
 init();
-
-// * temp. (main page reload)
-const logo = document.querySelector(".logo");
-
-logo.addEventListener("click", () => {
-  headerMainView.mainPageRender();
-  headerMainView.headerRender(
-    state.user.name,
-    state.user.destination,
-    state.user.travelPeriod.from,
-    state.user.travelPeriod.to
-  );
-
-  headerMainView.initialAmount();
-  exchangeAmount.value = "";
-});

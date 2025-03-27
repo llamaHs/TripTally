@@ -3,6 +3,7 @@ class CurrencyView {
   userCurrency = document.querySelector(".user-currency");
   readyCash = document.querySelector(".ready-cash-value");
   exchangeResult = document.querySelector(".rate-result-value");
+  exchangeAmount = document.querySelector(".amount");
 
   // * Display Currency symbol
   currencySymbolRender(symbol, userSymbol) {

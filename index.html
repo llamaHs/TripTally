@@ -139,7 +139,7 @@
           </div>
 
           <div class="receipt-items">
-            <div class="receipt-item">
+            <!-- <div class="receipt-item">
               <div class="icon-box">
                 <ion-icon class="icon icon-card" name="card-outline"></ion-icon>
               </div>
@@ -157,7 +157,7 @@
 
               <p class="item-date">May 30, 2025</p>
               <p class="item-price">$7</p>
-            </div>
+            </div> -->
           </div>
 
           <div class="button-list">
@@ -236,13 +236,24 @@
 
         <!-- NEW EXPENSE -->
         <div class="container container--expense">
-          <p class="container-title">New Spending</p>
-          <p class="expense-date">
-            Today: <span class="expense-date-locale">May 29, 2025</span>
-          </p>
+          <div class="expense-header">
+            <p class="container-title">New Spending</p>
+            <p class="expense-date">
+              <span class="expense-date-locale">May 29, 2025</span>
+            </p>
+          </div>
 
           <form class="expense-form">
             <div>
+              <label for="item"></label>
+              <input
+                id="item"
+                name="item"
+                type="text"
+                placeholder="item"
+                class="expense-item"
+              />
+
               <label for="spending"></label>
               <input
                 id="spending"
@@ -259,14 +270,14 @@
               <label for="cash">
                 <ion-icon class="icon icon-cash" name="cash-outline"></ion-icon>
               </label>
-              <input id="cash" type="checkbox" name="cash" />
+              <input id="cash" type="checkbox" name="cash" value="cash" />
             </div>
 
             <div class="checkbox-container">
               <label for="card">
                 <ion-icon class="icon icon-card" name="card-outline"></ion-icon>
               </label>
-              <input id="card" type="checkbox" name="card" />
+              <input id="card" type="checkbox" name="card" value="card" />
             </div>
 
             <button class="btn-spending">

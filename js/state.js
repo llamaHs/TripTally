@@ -10,7 +10,7 @@ export const state = {
   },
 
   asset: {
-    readyMoney: 0,
+    readyCash: 0,
     totalExpense: 0,
     receipt: [],
   },
