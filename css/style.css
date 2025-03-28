@@ -272,6 +272,7 @@
 .btn-filter-cash,
 .btn-filter-card,
 .btn-sort {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -280,6 +281,15 @@
   background: transparent;
   cursor: pointer;
   transition: all 0.3s;
+}
+
+.btn-filter-cash,
+.btn-filter-card {
+  min-width: 10rem;
+}
+
+.btn-sort {
+  min-width: 14.4rem;
 }
 
 .btn-filter-cash:hover,

@@ -6,9 +6,12 @@ class ExpenseView {
   itemDate = document.querySelector(".item-date");
   totalExpense = document.querySelector(".receipt-expense-value");
   receipt = document.querySelector(".receipt-items");
-
   expenseItem = document.querySelector(".expense-item");
   expenseAmount = document.querySelector(".expense-value");
+
+  btnSortCash = document.querySelector(".btn-filter-cash");
+  btnSortCard = document.querySelector(".btn-filter-card");
+  btnSortOld = document.querySelector(".btn-sort");
 
   dateOption = { year: "numeric", month: "long", day: "numeric" };
 
@@ -56,6 +59,19 @@ class ExpenseView {
       this.receipt.insertAdjacentHTML("afterbegin", markup);
     });
     this.expenseItem.textContent = this.expenseAmount.textContent = "";
+  }
+
+  // * Sort button render
+  sortBtnRender(isSorted) {
+    this.btnSortCash.querySelector(".sort-text").textContent = isSorted.cash
+      ? "BACK"
+      : "SORT BY CASH";
+    this.btnSortCard.querySelector(".sort-text").textContent = isSorted.card
+      ? "BACK"
+      : "SORT BY CARD";
+    this.btnSortOld.querySelector(".sort-text").textContent = isSorted.old
+      ? "SORT BY LATEST"
+      : "SORT BY OLDEST";
   }
 }
 

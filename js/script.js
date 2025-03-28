@@ -25,9 +25,11 @@ const checkCash = document.querySelector("#cash");
 const checkCard = document.querySelector("#card");
 const btnExpense = document.querySelector(".btn-spending");
 
-// if (module.hot) {
-//   module.hot.accept();
-// }
+const btnSortCash = document.querySelector(".btn-filter-cash");
+const btnSortCard = document.querySelector(".btn-filter-card");
+const btnSortOld = document.querySelector(".btn-sort");
+
+let isSorted = { cash: false, card: false, old: false };
 
 // * Setting country on the form
 const controlLogIn = function () {
@@ -120,6 +122,47 @@ class UpdateState {
 
     expenseView.totalExpenseRender(state.asset.totalExpense);
   }
+
+  updateSort(type) {
+    let sortedReceipt = state.asset.receipt;
+
+    // sort by cash
+    if (type === "cash") {
+      isSorted.cash = !isSorted.cash;
+      isSorted.card = false;
+      isSorted.old = false;
+
+      sortedReceipt = isSorted.cash
+        ? state.asset.receipt.filter((expense) => expense.pay === "cash")
+        : state.asset.receipt;
+    }
+
+    // sort by card
+    if (type === "card") {
+      isSorted.cash = false;
+      isSorted.card = !isSorted.card;
+      isSorted.old = false;
+
+      sortedReceipt = isSorted.card
+        ? state.asset.receipt.filter((expense) => expense.pay === "card")
+        : state.asset.receipt;
+    }
+
+    // sort by oldest/lastest
+    if (type === "old") {
+      isSorted.cash = false;
+      isSorted.card = false;
+      isSorted.old = !isSorted.old;
+
+      sortedReceipt = isSorted.old
+        ? state.asset.receipt.slice().reverse()
+        : state.asset.receipt;
+    }
+
+    // Update UI
+    expenseView.receiptRender(sortedReceipt, state.user.destination);
+    expenseView.sortBtnRender(isSorted);
+  }
 }
 
 const updateState = new UpdateState();
@@ -180,11 +223,21 @@ const addExpense = function () {
   });
 };
 
+// * Sort
+const sortRecipt = function () {
+  btnSortCash.addEventListener("click", (e) => updateState.updateSort("cash"));
+
+  btnSortCard.addEventListener("click", (e) => updateState.updateSort("card"));
+
+  btnSortOld.addEventListener("click", (e) => updateState.updateSort("old"));
+};
+
 // * Init
 const init = function () {
   controlLogIn();
   updateState.updateUser();
   calcExchange();
   addExpense();
+  sortRecipt();
 };
 init();
