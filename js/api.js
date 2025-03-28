@@ -61,6 +61,7 @@ class API {
       return currencyCode;
     } catch (err) {
       console.error(err.message);
+      return null;
     }
   }
 
@@ -71,6 +72,8 @@ class API {
       const userCurrencyCode = (
         await this.getCurrencyCode(userCountry)
       ).toLowerCase();
+
+      if (!userCurrencyCode) throw new Error("User currency code not found");
 
       const resRate = await fetch(
         `${API_CURRENCY_URL}${userCurrencyCode}.json`
@@ -92,37 +95,40 @@ class API {
       const exchangeRate = rateList[currencyCode];
       return exchangeRate;
     } catch (err) {
-      console.error(err.message);
-    }
+      console.error("Primary exchange rate API failed", err);
 
-    // !Fallback!
-    try {
-      // user's nation exchange rate
-      const userCurrencyCode = (
-        await this.getCurrencyCode(userCountry)
-      ).toLowerCase();
+      // !Fallback!
+      try {
+        // user's nation exchange rate
+        const userCurrencyCode = (
+          await this.getCurrencyCode(userCountry)
+        ).toLowerCase();
 
-      const resRate = await fetch(
-        `${API_CURRENCY_BACKUP_URL}${userCurrencyCode}.json`
-      );
+        const resRate = await fetch(
+          `${API_CURRENCY_BACKUP_URL}${userCurrencyCode}.json`
+        );
 
-      if (resRate.status === 404)
-        throw new Error(`Exchange rate not found ${resRate.status}`);
+        if (resRate.status === 404)
+          throw new Error(`Exchange rate not found ${resRate.status}`);
 
-      const dataRate = await resRate.json();
-      const rateList = Object.values(dataRate)[1];
+        const dataRate = await resRate.json();
+        const rateList = Object.values(dataRate)[1];
 
-      if (!rateList) {
-        country = "United States";
+        if (!rateList) {
+          country = "United States";
+        }
+
+        // destination exchange rate
+        const currencyCode = (
+          await this.getCurrencyCode(country)
+        ).toLowerCase();
+
+        const exchangeRate = rateList[currencyCode];
+        return exchangeRate;
+      } catch (fallbackErr) {
+        console.error("Fallback exchange rate API failed", fallbackErr);
+        return null;
       }
-
-      // destination exchange rate
-      const currencyCode = (await this.getCurrencyCode(country)).toLowerCase();
-
-      const exchangeRate = rateList[currencyCode];
-      return exchangeRate;
-    } catch (err) {
-      console.error(err.message);
     }
   }
 }

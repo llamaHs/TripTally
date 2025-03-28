@@ -32,7 +32,7 @@ const btnSortOld = document.querySelector(".btn-sort");
 let isSorted = { cash: false, card: false, old: false };
 
 // * Setting country on the form
-const controlLogIn = function () {
+const loadLogIn = function () {
   countrySelects.forEach((select) => {
     COUNTRY_LIST.forEach((country) => {
       const option = `<option name="country" value="${country}">${country}</option>`;
@@ -43,40 +43,36 @@ const controlLogIn = function () {
 
 // * Update state + UI
 class UpdateState {
-  async updateUser() {
-    document.addEventListener("DOMContentLoaded", () => {
-      logInForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
+  async updateUser(userInfo) {
+    // Update user info
+    state.user.name = userInfo.name;
+    state.user.nationality = userInfo.nation;
+    state.user.destination = userInfo.destination;
+    state.user.travelPeriod.from = userInfo.from;
+    state.user.travelPeriod.to = userInfo.to;
 
-        // Update user info
-        state.user.name = userName.value;
-        state.user.nationality = userNation.value;
-        state.user.destination = userDestination.value;
-        state.user.travelPeriod.from = dateFrom.value;
-        state.user.travelPeriod.to = dateTo.value;
+    // Update currency info
+    await this.updateCurrency();
 
-        // Update currency info
-        await this.updateCurrency();
+    console.log(state);
 
-        console.log(state);
+    // Update UI
+    headerMainView.mainPageRender();
+    headerMainView.headerRender(
+      state.user.name,
+      state.user.destination,
+      state.user.travelPeriod.from,
+      state.user.travelPeriod.to
+    );
+    headerMainView.initialAmount();
 
-        // Update UI
-        headerMainView.mainPageRender();
-        headerMainView.headerRender(
-          state.user.name,
-          state.user.destination,
-          state.user.travelPeriod.from,
-          state.user.travelPeriod.to
-        );
-        headerMainView.initialAmount();
-
-        await expenseView.expenseDateRender(state.user.destination);
-      });
-    });
+    await expenseView.expenseDateRender(state.user.destination);
   }
 
   async updateCurrency() {
     try {
+      if (!state.user.destination || !state.user.nationality) return;
+
       const symbol = await API.getCurrencySymbol(state.user.destination);
       const userSymbol = await API.getCurrencySymbol(state.user.nationality);
       const exchangeRate = await API.getExchangeRate(
@@ -96,6 +92,10 @@ class UpdateState {
     } catch (err) {
       console.error("Failed to update currency", err);
     }
+  }
+
+  async updateCurrencyState() {
+    await this.updateCurrency();
   }
 
   updateReadyCash(amount) {
@@ -167,9 +167,28 @@ class UpdateState {
 
 const updateState = new UpdateState();
 
+// * Log-in
+const controlLogIn = function () {
+  document.addEventListener("DOMContentLoaded", () => {
+    logInForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const userInfo = {
+        name: userName.value,
+        nation: userNation.value.trim(),
+        destination: userDestination.value.trim(),
+        from: dateFrom.value,
+        to: dateTo.value,
+      };
+
+      await updateState.updateUser(userInfo);
+    });
+  });
+};
+
 // * Calculate exchange rate + Add ready cash
-const calcExchange = function () {
-  updateState.updateUser();
+const calcExchange = async function () {
+  await updateState.updateCurrencyState();
 
   btnCalc.addEventListener("click", (e) => {
     e.preventDefault();
@@ -234,8 +253,8 @@ const sortRecipt = function () {
 
 // * Init
 const init = function () {
+  loadLogIn();
   controlLogIn();
-  updateState.updateUser();
   calcExchange();
   addExpense();
   sortRecipt();
