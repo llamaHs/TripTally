@@ -1,5 +1,5 @@
 // * Varaiables and Imports
-import { state } from "./state.js";
+import { state, saveUserInfo, getUserInfo } from "./state.js";
 import API from "./api.js";
 import { COUNTRY_LIST } from "./config.js";
 import headerMainView from "./views/headerMainView.js";
@@ -32,29 +32,27 @@ const btnSortOld = document.querySelector(".btn-sort");
 let isSorted = { cash: false, card: false, old: false };
 
 // * Setting country on the form
-const loadLogIn = function () {
+function loadLogInCountries() {
   countrySelects.forEach((select) => {
     COUNTRY_LIST.forEach((country) => {
       const option = `<option name="country" value="${country}">${country}</option>`;
       select.insertAdjacentHTML("beforeend", option);
     });
   });
-};
+}
 
 // * Update state + UI
 class UpdateState {
   async updateUser(userInfo) {
     // Update user info
     state.user.name = userInfo.name;
-    state.user.nationality = userInfo.nation;
+    state.user.nationality = userInfo.nationality;
     state.user.destination = userInfo.destination;
-    state.user.travelPeriod.from = userInfo.from;
-    state.user.travelPeriod.to = userInfo.to;
+    state.user.travelPeriod.from = userInfo.travelPeriod.from;
+    state.user.travelPeriod.to = userInfo.travelPeriod.to;
 
     // Update currency info
     await this.updateCurrency();
-
-    console.log(state);
 
     // Update UI
     headerMainView.mainPageRender();
@@ -64,9 +62,9 @@ class UpdateState {
       state.user.travelPeriod.from,
       state.user.travelPeriod.to
     );
-    headerMainView.initialAmount();
 
     await expenseView.expenseDateRender(state.user.destination);
+    saveUserInfo();
   }
 
   async updateCurrency() {
@@ -89,6 +87,8 @@ class UpdateState {
         state.currency.symbol,
         state.currency.userSymbol
       );
+
+      saveUserInfo();
     } catch (err) {
       console.error("Failed to update currency", err);
     }
@@ -107,7 +107,7 @@ class UpdateState {
     // Update UI
     currencyView.readyCashRender(state.asset.readyCash);
 
-    console.log(state);
+    saveUserInfo();
   }
 
   updateExpense(newExpense) {
@@ -121,6 +121,8 @@ class UpdateState {
     );
 
     expenseView.totalExpenseRender(state.asset.totalExpense);
+
+    saveUserInfo();
   }
 
   updateSort(type) {
@@ -175,13 +177,18 @@ const controlLogIn = function () {
 
       const userInfo = {
         name: userName.value,
-        nation: userNation.value.trim(),
+        nationality: userNation.value.trim(),
         destination: userDestination.value.trim(),
-        from: dateFrom.value,
-        to: dateTo.value,
+        travelPeriod: {
+          from: dateFrom.value,
+          to: dateTo.value,
+        },
       };
 
+      // Update state + show main page
       await updateState.updateUser(userInfo);
+      saveUserInfo();
+      headerMainView.initialAmount();
     });
   });
 };
@@ -251,12 +258,37 @@ const sortRecipt = function () {
   btnSortOld.addEventListener("click", (e) => updateState.updateSort("old"));
 };
 
+// * Render saved user info
+const renderSavedInfo = function () {
+  window.addEventListener("load", async () => {
+    const savedInfo = getUserInfo();
+
+    if (!savedInfo) return;
+
+    if (savedInfo) {
+      const savedState = Object.assign(state, savedInfo);
+      await updateState.updateUser(savedState.user);
+
+      currencyView.readyCashRender(savedState.asset.readyCash);
+      expenseView.receiptRender(
+        savedState.asset.receipt,
+        savedState.user.destination
+      );
+      expenseView.totalExpenseRender(savedState.asset.totalExpense);
+
+      headerMainView.reloadRender();
+    }
+  });
+};
+
 // * Init
 const init = function () {
-  loadLogIn();
+  loadLogInCountries();
   controlLogIn();
+  renderSavedInfo();
   calcExchange();
   addExpense();
   sortRecipt();
 };
+
 init();

@@ -21,3 +21,13 @@ export const state = {
     exchangeRate: 0,
   },
 };
+
+export const saveUserInfo = function () {
+  if (state.user.name !== "") {
+    localStorage.setItem("User", JSON.stringify(state));
+  }
+};
+
+export const getUserInfo = function () {
+  return JSON.parse(localStorage.getItem("User")) || null;
+};

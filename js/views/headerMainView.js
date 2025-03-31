@@ -17,9 +17,19 @@ class HeaderMainView {
 
   dateOption = { year: "numeric", month: "long", day: "numeric" };
 
-  // * Main page
+  // * Main / Login page
+  loginPageRender() {
+    this.logInPage.classList.remove("hidden");
+    this.mainApp.classList.add("hidden");
+  }
+
   mainPageRender() {
     this.logInPage.classList.add("hidden");
+    this.mainApp.classList.remove("hidden");
+  }
+
+  reloadRender() {
+    this.logInPage.classList.add("none");
     this.mainApp.classList.remove("hidden");
   }
 

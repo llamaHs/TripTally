@@ -21,11 +21,6 @@ class ExpenseView {
       countryCode,
       this.dateOption
     ).format(new Date());
-
-    // this.itemDate.textContent = new Intl.DateTimeFormat(
-    //   countryCode,
-    //   this.dateOption
-    // ).format(new Date());
   }
 
   // * Display total expense
