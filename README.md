@@ -36,7 +36,7 @@ npm run build
 
 ## 🖥️ Deployment
 
-TripTally is deployed on Netlify. You can access it here.
+TripTally is deployed on Netlify. You can access it [here](https://mytriptally.netlify.app/).
 
 ## 📜 License
 
