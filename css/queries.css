@@ -1,0 +1,228 @@
+/* ******************************* */
+/* BELOW 1200px (Landscape Tablet) */
+/* ******************************* */
+@media (max-width: 75em) {
+  html {
+    font-size: 56.25%;
+  }
+}
+
+/* ******************************* */
+/* BELOW 1060px */
+/* ******************************* */
+@media (max-width: 66em) {
+  html {
+    font-size: 50%;
+  }
+}
+
+/* ******************************* */
+/* BELOW 900px */
+/* ******************************* */
+@media (max-width: 57em) {
+  html {
+    font-size: 62.5%;
+  }
+
+  .log-in-box {
+    width: 65rem;
+  }
+
+  .header {
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 1.6rem;
+    margin-bottom: 1.6rem;
+  }
+
+  .welcome-msg,
+  .user-period {
+    margin-left: auto;
+  }
+
+  .logo {
+    left: 7%;
+  }
+
+  .app {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr 1fr auto;
+    column-gap: 0;
+    max-width: 60rem;
+  }
+
+  .container {
+    padding: 3.2rem 4.8rem;
+  }
+
+  .amount,
+  .expense-item,
+  .expense-value {
+    width: 22rem;
+  }
+
+  .btn-rate {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .icon {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .container--expense {
+    align-self: stretch;
+  }
+
+  .expense-form {
+    margin-top: 2rem;
+  }
+
+  .expense-item {
+    margin-bottom: 1.2rem;
+  }
+
+  .receipt {
+    grid-column: 1;
+    grid-row: 4;
+  }
+
+  .receipt-amount {
+    margin-right: 2rem;
+  }
+
+  .btn-receipt {
+    display: block;
+  }
+
+  .receipt-items {
+    transition: all 0.5s ease-in-out;
+  }
+
+  .button-list {
+    visibility: hidden;
+  }
+
+  /* SLIDE CLOSE */
+  .slide-open {
+    visibility: visible;
+    height: auto;
+  }
+
+  .slide-close {
+    visibility: hidden;
+    height: 0;
+  }
+}
+
+/* ******************************* */
+/* BELOW 680px */
+/* ******************************* */
+@media (max-width: 43em) {
+  .log-in-box {
+    width: 50rem;
+    height: 70rem;
+  }
+
+  .log-in-form {
+    align-items: center;
+    gap: 3.6rem;
+  }
+
+  .log-in-form .name,
+  .log-in-form .nationality,
+  .log-in-form .destination,
+  .log-in-form .date {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .app {
+    max-width: 50rem;
+  }
+
+  .amount,
+  .expense-item,
+  .expense-value {
+    width: 20rem;
+  }
+}
+
+/* ******************************* */
+/* BELOW 560px */
+/* ******************************* */
+@media (max-width: 35em) {
+  html {
+    font-size: 56.25%;
+  }
+}
+
+/* ******************************* */
+/* BELOW 470px */
+/* ******************************* */
+@media (max-width: 29em) {
+  html {
+    font-size: 50%;
+  }
+
+  .log-in-box {
+    width: 45rem;
+  }
+
+  .header {
+    padding: 2.4rem 2.4rem;
+    font-size: 1.6rem;
+  }
+
+  .logo {
+    left: 8%;
+  }
+
+  .app {
+    grid-template-columns: 40rem;
+    max-width: 40rem;
+  }
+
+  .container {
+    padding: 2.6rem 4.8rem;
+  }
+
+  .amount {
+    width: 17rem;
+  }
+
+  .expense-item,
+  .expense-value {
+    width: 22rem;
+  }
+
+  .expense-form {
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+
+  .expense-inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .checkboxes {
+    gap: 1.2rem;
+  }
+
+  .sort-text {
+    font-size: 1.2rem;
+  }
+
+  .btn-filter-cash,
+  .btn-filter-card {
+    min-width: 10rem;
+  }
+
+  .btn-sort {
+    min-width: 14.4rem;
+  }
+}

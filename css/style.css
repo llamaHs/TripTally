@@ -33,12 +33,14 @@
 /* ******************************* */
 /* LOG IN SECTION */
 /* ******************************* */
-.log-in-box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.log-in {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 1s;
+}
 
+.log-in-box {
   width: 70rem;
   height: 45rem;
   background-color: #fff;
@@ -126,6 +128,7 @@
   max-width: 100rem;
   margin: 0 auto;
   padding-top: 2.4rem;
+  transition: all 1s;
 }
 
 .receipt {
@@ -181,7 +184,6 @@
   font-size: 3.6rem;
   font-weight: 600;
   color: #099268;
-  margin-right: 2rem;
 }
 
 .receipt-amount .currency {
@@ -194,6 +196,7 @@
   cursor: pointer;
   width: 3rem;
   height: 3rem;
+  display: none;
 }
 
 .btn-icon-arrow {
@@ -473,6 +476,11 @@
 .expense-item::placeholder,
 .expense-value::placeholder {
   color: #777;
+}
+
+.checkboxes {
+  display: flex;
+  gap: 0.8rem;
 }
 
 .checkbox-container {

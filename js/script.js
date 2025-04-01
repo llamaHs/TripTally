@@ -13,18 +13,24 @@ const dateFrom = document.getElementById("date-from");
 const dateTo = document.getElementById("date-to");
 const userNation = document.querySelector("#country-from");
 const userDestination = document.querySelector("#country");
+const mainLogo = document.querySelector(".logo");
 
 const exchangeAmount = document.querySelector(".amount");
 const btnCalc = document.querySelector(".btn-calc");
 const btnAdd = document.querySelector(".btn-add");
 const exchangeResultUI = document.querySelector(".rate-result-value");
 
+const receiptItems = document.querySelector(".receipt-items");
 const expenseItem = document.querySelector(".expense-item");
 const expenseAmount = document.querySelector(".expense-value");
 const checkCash = document.querySelector("#cash");
 const checkCard = document.querySelector("#card");
 const btnExpense = document.querySelector(".btn-spending");
 
+const btnReceipt = document.querySelector(".btn-receipt");
+const iconArrowUp = document.querySelector(".arrow--up");
+const iconArrowDown = document.querySelector(".arrow--down");
+const btnSortAll = document.querySelector(".button-list");
 const btnSortCash = document.querySelector(".btn-filter-cash");
 const btnSortCard = document.querySelector(".btn-filter-card");
 const btnSortOld = document.querySelector(".btn-sort");
@@ -281,14 +287,43 @@ const renderSavedInfo = function () {
   });
 };
 
+// * Open / close receipt
+const controlOpenReceipt = function () {
+  const media900 = window.matchMedia("(max-width: 912px)");
+
+  if (media900) {
+    receiptItems.classList.add("slide-close");
+
+    btnReceipt.addEventListener("click", (e) => {
+      const target = e.target.closest(".btn-receipt");
+      if (!target) return;
+
+      receiptItems.classList.toggle("slide-close");
+      btnSortAll.classList.toggle("slide-open");
+      iconArrowUp.classList.toggle("none");
+      iconArrowDown.classList.toggle("none");
+    });
+  }
+};
+
+// * Log-out
+mainLogo.addEventListener("click", () => {
+  localStorage.removeItem("User");
+  location.reload();
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  loadLogInCountries();
+});
+
 // * Init
 const init = function () {
-  loadLogInCountries();
   controlLogIn();
   renderSavedInfo();
   calcExchange();
   addExpense();
   sortRecipt();
+  controlOpenReceipt();
 };
 
 init();
