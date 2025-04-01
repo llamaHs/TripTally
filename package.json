@@ -1,7 +1,7 @@
 {
   "name": "project-triptally",
   "version": "1.0.0",
-  "description": "This is a travel expense tracker that helps users to manage their ready money and expense during travel.",
+  "description": "This is a travel expense tracker that helps users to manage their ready cash and expenses efficiently while traveling.",
   "main": "script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
