@@ -19,7 +19,7 @@ This is a travel expense tracker that helps users to manage their ready cash and
 
 ### **1️⃣ Clone the Repository**
 
-git clone https://github.com/your-username/triptally.git
+git clone https://github.com/llamaHs/TripTally.git
 cd triptally
 
 ### **2️⃣ Install Dependencies**
